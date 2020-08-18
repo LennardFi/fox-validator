@@ -27,7 +27,7 @@
   "main": "./dist/index.js",
   "name": "fox-validator",
   "nodemonConfig": {
-    "exec": "npm run build && npm run test || exit 1",
+    "exec": "npm run prepare || exit 1",
     "ext": "json,ts",
     "ignore": [
       "dist",
@@ -42,8 +42,9 @@
     "build": "tsc",
     "develop": "nodemon",
     "lint": "eslint --ext .ts ./**/*.ts",
+    "prepare": "npm run build && npm run lint && npm run test",
     "test": "jest"
   },
   "types": "./dist/index.d.ts",
-  "version": "0.5.0"
+  "version": "0.5.1"
 }
