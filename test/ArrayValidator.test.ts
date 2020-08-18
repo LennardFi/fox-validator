@@ -1,0 +1,41 @@
+import { ArrayValidator } from "../src"
+import { NumberValidator } from "../src"
+import { StringValidator } from "../src"
+
+describe("ArrayValidator", () => {
+    it("", () => {
+        const isArray = new ArrayValidator().seal()
+        expect(isArray(123)).toBeFalsy()
+        expect(isArray({})).toBeFalsy()
+        expect(isArray([])).toBeTruthy()
+    })
+    it("equals", () => {
+        const arr = [1, 2, 3]
+        const isSameArray = new ArrayValidator().equals(arr).seal()
+        expect(isSameArray([])).toBeFalsy()
+        expect(isSameArray({})).toBeFalsy()
+        expect(isSameArray(123)).toBeFalsy()
+        expect(isSameArray(arr)).toBeTruthy()
+    })
+    it("equalsOneOf", () => {
+        const arr1 = [1, 2, 3]
+        const arr2: unknown[] = []
+        const isSameArray = new ArrayValidator().equalsOneOf(arr1, arr2).seal()
+        expect(isSameArray([])).toBeFalsy()
+        expect(isSameArray({})).toBeFalsy()
+        expect(isSameArray(123)).toBeFalsy()
+        expect(isSameArray(arr1)).toBeTruthy()
+        expect(isSameArray(arr2)).toBeTruthy()
+    })
+    it("validateItems", () => {
+        const isNumberArray = new ArrayValidator().validateItems(
+            new NumberValidator().seal(),
+            new StringValidator().seal(),
+        ).seal()
+        expect(isNumberArray([null, undefined, []])).toBeFalsy()
+        expect(isNumberArray([])).toBeTruthy()
+        expect(isNumberArray([1, "2", 3])).toBeTruthy()
+        expect(isNumberArray([1, 2, 3])).toBeTruthy()
+        expect(isNumberArray(["1", "2", "3"])).toBeTruthy()
+    })
+})
