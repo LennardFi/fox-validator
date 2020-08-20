@@ -38,4 +38,15 @@ describe("ArrayValidator", () => {
         expect(isNumberArray([1, 2, 3])).toBeTruthy()
         expect(isNumberArray(["1", "2", "3"])).toBeTruthy()
     })
+    it("validateTupel", () => {
+        const isDoubleNumberTupel = new ArrayValidator().validateTupel(
+            new NumberValidator().seal(),
+            new NumberValidator().seal(),
+        ).seal()
+        expect(isDoubleNumberTupel([null, null])).toBeFalsy()
+        expect(isDoubleNumberTupel([1])).toBeFalsy()
+        expect(isDoubleNumberTupel([1, null])).toBeFalsy()
+        expect(isDoubleNumberTupel([1, 2, 3])).toBeFalsy()
+        expect(isDoubleNumberTupel([0, 1])).toBeTruthy()
+    })
 })

@@ -38,4 +38,20 @@ export default class ArrayValidator extends EqualsValidatorBase<unknown[]> {
         })
         return this
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    validateTupel(...validatorTupel: SealedValidator<any>[]): ArrayValidator {
+        this.ruleCheckers.push(value => {
+            if (value.length !== validatorTupel.length) {
+                return false
+            }
+            return value.reduce((prevResult, tupelValue, i) => {
+                if (!prevResult || validatorTupel[i] === undefined) {
+                    return prevResult
+                }
+                return validatorTupel[i](tupelValue)
+            }, true as boolean) as boolean
+        })
+        return this
+    }
 }
