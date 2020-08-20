@@ -15,7 +15,8 @@ export type Validator =
     FunctionValidator |
     NullValidator |
     NumberValidator |
-    ObjectValidator |
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    ObjectValidator<object> |
     StringValidator |
     UndefinedValidator
 

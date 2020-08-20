@@ -7,5 +7,5 @@ import NumberValidator from "./NumberValidator";
 import ObjectValidator from "./ObjectValidator";
 import StringValidator from "./StringValidator";
 import UndefinedValidator from "./UndefinedValidator";
-export declare type Validator = AnyValidator | ArrayValidator | BooleanValidator | FunctionValidator | NullValidator | NumberValidator | ObjectValidator | StringValidator | UndefinedValidator;
+export declare type Validator = AnyValidator | ArrayValidator | BooleanValidator | FunctionValidator | NullValidator | NumberValidator | ObjectValidator<object> | StringValidator | UndefinedValidator;
 export { AnyValidator, ArrayValidator, BooleanValidator, FunctionValidator, NullValidator, NumberValidator, ObjectValidator, StringValidator, UndefinedValidator, };

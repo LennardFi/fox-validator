@@ -22,7 +22,8 @@ export default class ObjectValidator extends EqualsValidatorBase {
     }
     map(validatorMap) {
         this.ruleCheckers.push(value => {
-            return Object.keys(validatorMap).reduce((prevResult, key) => {
+            return Object.keys(validatorMap).reduce((prevResult, k) => {
+                const key = k;
                 if (!prevResult) {
                     return prevResult;
                 }
