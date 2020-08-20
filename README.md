@@ -2,17 +2,40 @@
 
 A value validation library with a jest like api.
 
+We want to ensure that every IO function of our code base ensures the incoming
+or outgoing data is a valid fox. TypeScript doesn't provide a way to do this.
+
+With `fox-validator` we can validate incoming data. It produces a [custom type
+guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards)
+function.
+
 ## Usage
 
 ```ts
-import { StringValidator } from "fox-validator"
+import { FunctionValidator, ObjectValidator } from "../src/index"
 
-// Define custom validator
-const isMail = new StringValidator().match(/\w+@\w+\.\w+/).seal()
+/* Our target data type */
+interface Fox {
+    say(): string
+}
 
-// Use validator
-isMail("abc") // false
-isMail("foo@example.com") // true
+/* Validator function definition */
+const isFox = new ObjectValidator<Fox>().map({
+    say: new FunctionValidator().expectsArgumentCount(0).seal(),
+}).seal()
+
+/* Defining test data */
+const fox: unknown = {
+    say: () => "🦊"
+}
+// fox is of type `unknown`
+
+if (isFox(fox)) {
+    // fox is of type `Fox`
+    // lets see what the fox say...
+    console.log(fox.say()) // > 🦊
+}
+// fox is of type `unknown`
 ```
 
 ## API

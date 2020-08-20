@@ -1,7 +1,8 @@
 import { EqualsValidatorBase } from "./ValidatorBase"
 import { SealedValidator } from "./SealedValidator"
 
-export default class ObjectValidator<M extends Record<string, unknown> = Record<string, unknown>> extends EqualsValidatorBase<M> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default class ObjectValidator<M extends object> extends EqualsValidatorBase<M> {
     constructor() {
         super()
         this.ruleCheckers.push(value => typeof value === "object" && value !== null)
@@ -27,13 +28,15 @@ export default class ObjectValidator<M extends Record<string, unknown> = Record<
         return this
     }
 
-    map(validatorMap: Record<keyof M, SealedValidator<M[keyof M]> | SealedValidator<M[keyof M]>[]>): ObjectValidator<M> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    map(validatorMap: Record<keyof M, SealedValidator<any> | SealedValidator<any>[]>): ObjectValidator<M> {
         this.ruleCheckers.push(value => {
-            return Object.keys(validatorMap).reduce((prevResult, key) => {
+            return Object.keys(validatorMap).reduce((prevResult, k) => {
+                const key = k as keyof M
                 if (!prevResult) {
                     return prevResult
                 }
-                const subValidator = validatorMap[key]
+                const subValidator = validatorMap[key] as SealedValidator<M[keyof M]> | SealedValidator<M[keyof M]>[]
                 if (Array.isArray(subValidator)) {
                     return subValidator.some(subValidator => subValidator(value[key]))
                 }
