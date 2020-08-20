@@ -60,6 +60,7 @@ describe("StringValidator", () => {
         const isTwoCharsLong = new StringValidator().hasLength(2).seal()
         expect(isTwoCharsLong(123)).toBeFalsy()
         expect(isTwoCharsLong("yes")).toBeFalsy()
+        expect(isTwoCharsLong("!")).toBeFalsy()
         expect(isTwoCharsLong("no")).toBeTruthy()
         expect(isTwoCharsLong("hi")).toBeTruthy()
     })
