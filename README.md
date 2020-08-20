@@ -41,4 +41,3 @@ available:
 ## TODO
 
 - Add JSDoc documentation
-- Add tupel validating in array validator
