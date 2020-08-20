@@ -28,10 +28,10 @@ A clear and concise description of what you expected to happen.
 
 If applicable, add screenshots to help explain your problem.
 
-### Environment (please complete the following information):
+### Environment (please complete the following information)
 
- - Environment: [e.g. Node.js or Browser]: 
- - Used Language (TypeScript or JavaScript and used version): 
+- Environment: [e.g. Node.js or Browser]
+- Used Language (TypeScript or JavaScript and used version)
 
 ### Additional context
 
