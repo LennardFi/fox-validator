@@ -24,7 +24,7 @@
   ],
   "license": "MIT",
   "main": "./dist/index.js",
-  "name": "@lennardfi/fox-validator",
+  "name": "fox-validator",
   "nodemonConfig": {
     "exec": "npm run build && npm run lint && npm run test || exit 1",
     "ext": "json,ts",
@@ -32,9 +32,6 @@
       "dist",
       "node_modules"
     ]
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
