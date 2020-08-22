@@ -12,12 +12,20 @@ export default class NumberValidator extends EqualsValidatorBase {
         super.equalsNot(compareValue);
         return this;
     }
+    equalsNoneOf(...compareValues) {
+        super.equalsNoneOf(...compareValues);
+        return this;
+    }
     equalsOneOf(...compareValues) {
         super.equalsOneOf(...compareValues);
         return this;
     }
-    equalsNoneOf(...compareValues) {
-        super.equalsNoneOf(...compareValues);
+    greaterThan(n) {
+        this.ruleCheckers.push(value => value > n);
+        return this;
+    }
+    greaterThanOrEqual(n) {
+        this.ruleCheckers.push(value => value >= n);
         return this;
     }
     isInt() {
@@ -26,6 +34,14 @@ export default class NumberValidator extends EqualsValidatorBase {
     }
     isFloat() {
         this.ruleCheckers.push(value => !Number.isInteger(value));
+        return this;
+    }
+    lessThan(n) {
+        this.ruleCheckers.push(value => value < n);
+        return this;
+    }
+    lessThanOrEqual(n) {
+        this.ruleCheckers.push(value => value <= n);
         return this;
     }
 }

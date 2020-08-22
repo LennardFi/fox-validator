@@ -17,6 +17,23 @@ describe("ArrayValidator", () => {
         expect(isSameArray(123)).toBeFalsy()
         expect(isSameArray(arr)).toBeTruthy()
     })
+    it("equalsNot", () => {
+        const arr = [1, 2, 3]
+        const isNotSameArray = new ArrayValidator().equalsNot(arr).seal()
+        expect(isNotSameArray(123)).toBeFalsy()
+        expect(isNotSameArray(arr)).toBeFalsy()
+        expect(isNotSameArray([...arr])).toBeTruthy()
+    })
+    it("equalsNoneOf", () => {
+        const arr1 = [1, 2, 3]
+        const arr2: unknown[] = []
+        const isSameArray = new ArrayValidator().equalsNoneOf(arr1, arr2).seal()
+        expect(isSameArray(123)).toBeFalsy()
+        expect(isSameArray(arr1)).toBeFalsy()
+        expect(isSameArray(arr2)).toBeFalsy()
+        expect(isSameArray([])).toBeTruthy()
+        expect(isSameArray([...arr1])).toBeTruthy()
+    })
     it("equalsOneOf", () => {
         const arr1 = [1, 2, 3]
         const arr2: unknown[] = []

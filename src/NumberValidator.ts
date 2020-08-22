@@ -16,13 +16,23 @@ export default class NumberValidator extends EqualsValidatorBase<number> {
         return this
     }
 
+    equalsNoneOf(...compareValues: number[]): NumberValidator {
+        super.equalsNoneOf(...compareValues)
+        return this
+    }
+
     equalsOneOf(...compareValues: number[]): NumberValidator {
         super.equalsOneOf(...compareValues)
         return this
     }
 
-    equalsNoneOf(...compareValues: number[]): NumberValidator {
-        super.equalsNoneOf(...compareValues)
+    greaterThan(n: number): NumberValidator {
+        this.ruleCheckers.push(value => value > n)
+        return this
+    }
+
+    greaterThanOrEqual(n: number): NumberValidator {
+        this.ruleCheckers.push(value => value >= n)
         return this
     }
 
@@ -33,6 +43,16 @@ export default class NumberValidator extends EqualsValidatorBase<number> {
 
     isFloat(): NumberValidator {
         this.ruleCheckers.push(value => !Number.isInteger(value))
+        return this
+    }
+
+    lessThan(n: number): NumberValidator {
+        this.ruleCheckers.push(value => value < n)
+        return this
+    }
+
+    lessThanOrEqual(n: number): NumberValidator {
+        this.ruleCheckers.push(value => value <= n)
         return this
     }
 }

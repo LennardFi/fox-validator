@@ -5,6 +5,7 @@ import FunctionValidator from "./FunctionValidator"
 import NullValidator from "./NullValidator"
 import NumberValidator from "./NumberValidator"
 import ObjectValidator from "./ObjectValidator"
+import OneOfValidator from "./OneOfValidator"
 import StringValidator from "./StringValidator"
 import UndefinedValidator from "./UndefinedValidator"
 
@@ -17,6 +18,7 @@ export type Validator =
     NumberValidator |
     // eslint-disable-next-line @typescript-eslint/ban-types
     ObjectValidator<object> |
+    OneOfValidator |
     StringValidator |
     UndefinedValidator
 
@@ -28,6 +30,7 @@ export {
     NullValidator,
     NumberValidator,
     ObjectValidator,
+    OneOfValidator,
     StringValidator,
     UndefinedValidator,
 }
