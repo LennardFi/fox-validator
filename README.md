@@ -49,13 +49,15 @@ available:
   methods to ensure the value of the boolean (`true` or `false`).
 - `FunctionValidator`: Ensures the given value is a function. It also provides a
   method to validate the argument length of the given function.
+- `MaybeValidator`: Proxies another validator. A given value has to be
+  `undefined` or needs to be validated by another given validator.
 - `NullValidator`: Returns `true` if the value is equal to `null`.
 - `NumberValidator`: Ensures a given value is a number. This generator also
-  provides methods e.g. to ensures the number is an int or a float. Furthermore
-  there are methods to ensure the given number is equal or not equal to one or
-  multiple possible values.
+  provides methods to check the number.
 - `ObjectValidator`: A validator generator to check objects and their
   properties.
+- `OneOfValidator`: A validator generator that accepts multiple validator. If
+  one subvalidator returns true the value will be validated.
 - `StringValidator`: This generator ensures a given value is a string. The
   generator also provides methods to check the string.
 - `UndefinedValidator`: This validator returns `true` if the given value is
