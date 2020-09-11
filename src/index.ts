@@ -2,6 +2,7 @@ import AnyValidator from "./AnyValidator"
 import ArrayValidator from "./ArrayValidator"
 import BooleanValidator from "./BooleanValidator"
 import FunctionValidator from "./FunctionValidator"
+import MaybeValidator from "./MaybeValidator"
 import NullValidator from "./NullValidator"
 import NumberValidator from "./NumberValidator"
 import ObjectValidator from "./ObjectValidator"
@@ -14,6 +15,7 @@ export type Validator =
     ArrayValidator |
     BooleanValidator |
     FunctionValidator |
+    MaybeValidator |
     NullValidator |
     NumberValidator |
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -27,6 +29,7 @@ export {
     ArrayValidator,
     BooleanValidator,
     FunctionValidator,
+    MaybeValidator,
     NullValidator,
     NumberValidator,
     ObjectValidator,
