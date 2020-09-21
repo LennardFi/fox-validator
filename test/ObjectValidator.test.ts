@@ -59,4 +59,24 @@ describe("ObjectValidator", () => {
             b: 2,
         })).toBeTruthy()
     })
+    it("mapPartial", () => {
+        const mapsObject = new ObjectValidator<Record<"a" | "b", number>>().mapPartial({
+            a: new NumberValidator().equals(1).seal(),
+            b: new NumberValidator().equals(2).seal(),
+        }).seal()
+        expect(mapsObject("abc")).toBeFalsy()
+        expect(mapsObject({
+            a: 2,
+        })).toBeFalsy()
+        expect(mapsObject({
+            a: "1",
+        })).toBeFalsy()
+        expect(mapsObject({
+            a: 1,
+        })).toBeTruthy()
+        expect(mapsObject({
+            a: 1,
+            b: 2,
+        })).toBeTruthy()
+    })
 })
