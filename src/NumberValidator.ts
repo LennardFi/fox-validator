@@ -1,5 +1,14 @@
 import { EqualsValidatorBase } from "./ValidatorBase"
 
+/**
+ * Checks if a value is a number.
+ *
+ * @example
+ * const isNumber = new NumberValidator().seal()
+ *
+ * isNumber(false) // false
+ * isNumber(123) // true
+ */
 export default class NumberValidator extends EqualsValidatorBase<number> {
     constructor() {
         super()
