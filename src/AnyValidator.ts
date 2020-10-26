@@ -1,11 +1,11 @@
 import { ValidatorBase } from "./ValidatorBase"
 
 /**
- * This validator that returns always `true`.
- * 
+ * This validator returns always `true`.
+ *
  * @example
  * const isValue = new AnyValidator().seal()
- * 
+ *
  * isValue(false) // true
  * isValue("abc") // true
  * isValue(undefined) // true

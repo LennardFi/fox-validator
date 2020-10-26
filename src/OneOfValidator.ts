@@ -1,6 +1,9 @@
-import { ValidatorBase } from "./ValidatorBase"
 import { SealedValidator } from "./SealedValidator"
+import { ValidatorBase } from "./ValidatorBase"
 
+/**
+ * Validates to `true` if at least one of the sub validators return `true`.
+ */
 export default class OneOfValidator extends ValidatorBase {
     constructor() {
         super()
