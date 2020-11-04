@@ -2,11 +2,11 @@ import AnyValidator from "./AnyValidator"
 import ArrayValidator from "./ArrayValidator"
 import BooleanValidator from "./BooleanValidator"
 import FunctionValidator from "./FunctionValidator"
-import Maybe from "./Maybe"
+import MaybeValidator from "./MaybeValidator"
 import NullValidator from "./NullValidator"
 import NumberValidator from "./NumberValidator"
 import ObjectValidator from "./ObjectValidator"
-import OneOf from "./OneOf"
+import OneOfValidator from "./OneOfValidator"
 import StringValidator from "./StringValidator"
 import UndefinedValidator from "./UndefinedValidator"
 
@@ -15,10 +15,12 @@ export type Validator =
     ArrayValidator |
     BooleanValidator |
     FunctionValidator |
+    MaybeValidator |
     NullValidator |
     NumberValidator |
     // eslint-disable-next-line @typescript-eslint/ban-types
     ObjectValidator<object> |
+    OneOfValidator |
     StringValidator |
     UndefinedValidator
 
@@ -27,11 +29,11 @@ export {
     ArrayValidator,
     BooleanValidator,
     FunctionValidator,
-    Maybe,
+    MaybeValidator,
     NullValidator,
     NumberValidator,
     ObjectValidator,
-    OneOf,
+    OneOfValidator,
     StringValidator,
     UndefinedValidator,
 }
