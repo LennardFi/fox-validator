@@ -1,11 +1,22 @@
-import { RuleChecker } from "./ValidatorBase"
+import { ValidatorRule } from "./ValidatorBase"
 
 export interface SealedValidator<T = unknown> {
+    /**
+     * Validates the given value
+     */
     (value: unknown): value is T
-    getCheckers(): RuleChecker<T>[]
+    /**
+     * An array of sub validator functions.
+     */
+    getCheckers(): ValidatorRule<T>[]
 }
 
-export default function sealedValidator<T = unknown>(ruleCheckers: RuleChecker<T>[]): SealedValidator<T> {
+/**
+ * A sealed validator is a function that can be used to validate values. It is
+ * being returned when a validator instance become sealed.
+ * @param ruleCheckers A list of rule checkers returned by a validator instance.
+ */
+export default function sealedValidator<T = unknown>(ruleCheckers: ValidatorRule<T>[]): SealedValidator<T> {
     const func = (value: unknown): value is T => {
         return ruleCheckers.reduce((prevCheckResult, checker) => {
             if (!prevCheckResult) {
