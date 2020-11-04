@@ -1,5 +1,4 @@
-import { ObjectValidator } from "../src"
-import { NumberValidator } from "../src"
+import { NumberValidator, ObjectValidator } from "../src"
 
 describe("ObjectValidator", () => {
     it("", () => {
@@ -45,7 +44,7 @@ describe("ObjectValidator", () => {
         expect(isSameObject(obj1)).toBeTruthy()
         expect(isSameObject(obj2)).toBeTruthy()
     })
-    it("map", () => {
+    describe("map", () => {
         const mapsObject = new ObjectValidator<Record<"a" | "b", number>>().map({
             a: new NumberValidator().equals(1).seal(),
             b: new NumberValidator().equals(2).seal(),

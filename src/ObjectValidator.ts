@@ -45,18 +45,14 @@ export default class ObjectValidator<O extends object> extends EqualsValidatorBa
      * validators.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    map(validatorMap: Record<keyof O, SealedValidator<any> | SealedValidator<any>[]>): ObjectValidator<O> {
+    map(validatorMap: Record<keyof O, SealedValidator<any>>): ObjectValidator<O> {
         this.ruleCheckers.push(value => {
             return Object.keys(validatorMap).reduce((prevResult, k) => {
                 const key = k as keyof O
                 if (!prevResult) {
                     return prevResult
                 }
-                const subValidator = validatorMap[key] as SealedValidator<O[keyof O]> | SealedValidator<O[keyof O]>[]
-                if (Array.isArray(subValidator)) {
-                    return subValidator.some(subValidator => subValidator(value[key]))
-                }
-                return subValidator(value[key])
+                return validatorMap[key](value[key])
             }, true as boolean)
         })
         return this
@@ -69,22 +65,14 @@ export default class ObjectValidator<O extends object> extends EqualsValidatorBa
      * validators.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapPartial(validatorMap: Record<keyof O, SealedValidator<any> | SealedValidator<any>[]>): ObjectValidator<O> {
+    mapPartial(validatorMap: Record<keyof O, SealedValidator<any>>): ObjectValidator<O> {
         this.ruleCheckers.push(value => {
             return Object.keys(validatorMap).reduce((prevResult, k) => {
                 const key = k as keyof O
                 if (!prevResult) {
                     return prevResult
                 }
-                const subValidator = validatorMap[key] as SealedValidator<O[keyof O]> | SealedValidator<O[keyof O]>[]
-                if (Array.isArray(subValidator)) {
-                    subValidator.push(new UndefinedValidator().seal() as unknown as SealedValidator<O[keyof O]>)
-                    return subValidator.some(subValidator => subValidator(value[key]))
-                }
-                if (subValidator(value[key])) {
-                    return true
-                }
-                return new UndefinedValidator().seal()(value[key])
+                return validatorMap[key](value[key]) || (new UndefinedValidator().seal())(value[key])
             }, true as boolean)
         })
         return this
