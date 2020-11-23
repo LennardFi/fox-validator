@@ -1,6 +1,4 @@
-import { ArrayValidator } from "../src"
-import { NumberValidator } from "../src"
-import { StringValidator } from "../src"
+import { ArrayValidator, NumberValidator, StringValidator } from "../src"
 
 describe("ArrayValidator", () => {
     it("", () => {

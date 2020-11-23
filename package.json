@@ -39,6 +39,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "coverage": "jest --coverage --all",
     "develop": "nodemon",
     "lint": "eslint --ext .ts ./**/*.ts",
     "prepare": "npm run build",
