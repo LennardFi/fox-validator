@@ -40,6 +40,16 @@ export default class ObjectValidator<O extends object> extends EqualsValidatorBa
     }
 
     /**
+     * Checks if the value is an instance of the given ES6 class function.
+     * @param c The ES6 instance generator class function.
+     */
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    instanceOf(c: Function): ObjectValidator<O> {
+        this.ruleCheckers.push(value => value instanceof c)
+        return this
+    }
+
+    /**
      * Validates the properties of the value to be validated.
      * @param validatorMap A object that maps required property keys to sealed
      * validators.
