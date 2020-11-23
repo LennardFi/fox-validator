@@ -44,7 +44,13 @@ describe("ObjectValidator", () => {
         expect(isSameObject(obj1)).toBeTruthy()
         expect(isSameObject(obj2)).toBeTruthy()
     })
-    describe("map", () => {
+    it("instanceOf", () => {
+        const isDate = new ObjectValidator<Date>().instanceOf(Date).seal()
+        expect(isDate("")).toBeFalsy()
+        expect(isDate({})).toBeFalsy()
+        expect(isDate(new Date())).toBeTruthy()
+    })
+    it("map", () => {
         const mapsObject = new ObjectValidator<Record<"a" | "b", number>>().map({
             a: new NumberValidator().equals(1).seal(),
             b: new NumberValidator().equals(2).seal(),
