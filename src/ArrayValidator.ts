@@ -12,28 +12,28 @@ import { EqualsValidatorBase } from "./ValidatorBase"
  * isArray(123) // false
  * isArray({}) // false
  */
-export default class ArrayValidator extends EqualsValidatorBase<unknown[]> {
+export default class ArrayValidator<T extends unknown[] = unknown[]> extends EqualsValidatorBase<T> {
     constructor() {
         super()
         this.ruleCheckers.push(value => typeof value === "object" && Array.isArray(value))
     }
 
-    equals(compareValue: unknown[]): ArrayValidator {
+    equals(compareValue: unknown[]): ArrayValidator<T> {
         super.equals(compareValue)
         return this
     }
 
-    equalsNot(compareValue: unknown[]): ArrayValidator {
+    equalsNot(compareValue: unknown[]): ArrayValidator<T> {
         super.equalsNot(compareValue)
         return this
     }
 
-    equalsOneOf(...compareValues: unknown[][]): ArrayValidator {
+    equalsOneOf(...compareValues: unknown[][]): ArrayValidator<T> {
         super.equalsOneOf(...compareValues)
         return this
     }
 
-    equalsNoneOf(...compareValues: unknown[][]): ArrayValidator {
+    equalsNoneOf(...compareValues: unknown[][]): ArrayValidator<T> {
         super.equalsNoneOf(...compareValues)
         return this
     }
@@ -48,7 +48,7 @@ export default class ArrayValidator extends EqualsValidatorBase<unknown[]> {
      * the array.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    validateItems(...subValidators: SealedValidator<any>[]): ArrayValidator {
+    validateItems<T extends unknown>(...subValidators: SealedValidator<T>[]): ArrayValidator<T[]> {
         this.ruleCheckers.push(value => {
             return !value.some(item => {
                 return !subValidators.some(subValidator => {
@@ -56,7 +56,7 @@ export default class ArrayValidator extends EqualsValidatorBase<unknown[]> {
                 })
             })
         })
-        return this
+        return this as unknown as ArrayValidator<T[]>
     }
 
     /**
@@ -68,7 +68,7 @@ export default class ArrayValidator extends EqualsValidatorBase<unknown[]> {
      * the array
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    validateTupel(...validatorTupel: SealedValidator<any>[]): ArrayValidator {
+    validateTupel<T extends unknown[]>(...validatorTupel: SealedValidator<any>[]): ArrayValidator<T[]> {
         this.ruleCheckers.push(value => {
             if (value.length !== validatorTupel.length) {
                 return false
@@ -80,6 +80,6 @@ export default class ArrayValidator extends EqualsValidatorBase<unknown[]> {
                 return validatorTupel[i](tupelValue)
             }, true as boolean) as boolean
         })
-        return this
+        return this as unknown as ArrayValidator<T[]>
     }
 }

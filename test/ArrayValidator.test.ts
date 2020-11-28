@@ -43,18 +43,18 @@ describe("ArrayValidator", () => {
         expect(isSameArray(arr2)).toBeTruthy()
     })
     it("validateItems", () => {
-        const isNumberArray = new ArrayValidator().validateItems(
+        const isNumberStringArray = new ArrayValidator().validateItems<number | string>(
             new NumberValidator().seal(),
             new StringValidator().seal(),
         ).seal()
-        expect(isNumberArray([null, undefined, []])).toBeFalsy()
-        expect(isNumberArray([])).toBeTruthy()
-        expect(isNumberArray([1, "2", 3])).toBeTruthy()
-        expect(isNumberArray([1, 2, 3])).toBeTruthy()
-        expect(isNumberArray(["1", "2", "3"])).toBeTruthy()
+        expect(isNumberStringArray([null, undefined, []])).toBeFalsy()
+        expect(isNumberStringArray([])).toBeTruthy()
+        expect(isNumberStringArray([1, "2", 3])).toBeTruthy()
+        expect(isNumberStringArray([1, 2, 3])).toBeTruthy()
+        expect(isNumberStringArray(["1", "2", "3"])).toBeTruthy()
     })
     it("validateTupel", () => {
-        const isDoubleNumberTupel = new ArrayValidator().validateTupel(
+        const isDoubleNumberTupel = new ArrayValidator().validateTupel<[number, number]>(
             new NumberValidator().seal(),
             new NumberValidator().seal(),
         ).seal()
