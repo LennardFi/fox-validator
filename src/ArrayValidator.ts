@@ -18,22 +18,22 @@ export default class ArrayValidator<T extends unknown[] = unknown[]> extends Equ
         this.ruleCheckers.push(value => typeof value === "object" && Array.isArray(value))
     }
 
-    equals(compareValue: unknown[]): ArrayValidator<T> {
+    equals(compareValue: T): ArrayValidator<T> {
         super.equals(compareValue)
         return this
     }
 
-    equalsNot(compareValue: unknown[]): ArrayValidator<T> {
+    equalsNot(compareValue: T): ArrayValidator<T> {
         super.equalsNot(compareValue)
         return this
     }
 
-    equalsOneOf(...compareValues: unknown[][]): ArrayValidator<T> {
+    equalsOneOf(...compareValues: T[]): ArrayValidator<T> {
         super.equalsOneOf(...compareValues)
         return this
     }
 
-    equalsNoneOf(...compareValues: unknown[][]): ArrayValidator<T> {
+    equalsNoneOf(...compareValues: T[]): ArrayValidator<T> {
         super.equalsNoneOf(...compareValues)
         return this
     }
@@ -48,7 +48,7 @@ export default class ArrayValidator<T extends unknown[] = unknown[]> extends Equ
      * the array.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    validateItems<T extends unknown>(...subValidators: SealedValidator<T>[]): ArrayValidator<T[]> {
+    validateItems<T extends unknown>(...subValidators: SealedValidator<any>[]): ArrayValidator<T[]> {
         this.ruleCheckers.push(value => {
             return !value.some(item => {
                 return !subValidators.some(subValidator => {
