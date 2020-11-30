@@ -75,7 +75,7 @@ export default class ObjectValidator<O extends object> extends EqualsValidatorBa
      * validators.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapPartial(validatorMap: Record<keyof O, SealedValidator<any>>): ObjectValidator<O> {
+    mapPartial(validatorMap: Record<keyof O, SealedValidator<any>>): ObjectValidator<Partial<O>> {
         this.ruleCheckers.push(value => {
             return Object.keys(validatorMap).reduce((prevResult, k) => {
                 const key = k as keyof O
@@ -85,6 +85,6 @@ export default class ObjectValidator<O extends object> extends EqualsValidatorBa
                 return validatorMap[key](value[key]) || (new UndefinedValidator().seal())(value[key])
             }, true as boolean)
         })
-        return this
+        return this as unknown as ObjectValidator<Partial<O>>
     }
 }
