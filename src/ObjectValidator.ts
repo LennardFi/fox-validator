@@ -59,10 +59,8 @@ export default class ObjectValidator<O extends object> extends EqualsValidatorBa
         this.ruleCheckers.push(value => {
             return Object.keys(validatorMap).reduce((prevResult, k) => {
                 const key = k as keyof O
-                if (!prevResult) {
-                    return prevResult
-                }
-                return validatorMap[key](value[key])
+                /* istanbul ignore next */
+                return prevResult ? validatorMap[key](value[key]) : false
             }, true as boolean)
         })
         return this
