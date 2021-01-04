@@ -1,4 +1,4 @@
-import { NumberValidator, ObjectValidator } from "../src"
+import { BooleanValidator, NumberValidator, ObjectValidator, OneOfValidator, StringValidator } from "../src"
 
 describe("ObjectValidator", () => {
     it("", () => {
@@ -7,6 +7,31 @@ describe("ObjectValidator", () => {
         expect(isObject("1")).toBeFalsy()
         expect(isObject(null)).toBeFalsy()
         expect(isObject({})).toBeTruthy()
+    })
+    it("dictionaryOf", () => {
+        const isNumberDict = new ObjectValidator()
+            .dictionaryOf(new NumberValidator().seal())
+            .seal()
+        expect(isNumberDict({ a: "abc" })).toBeFalsy()
+        expect(isNumberDict({ a: "abc", b: 123 })).toBeFalsy()
+        expect(isNumberDict({ a: 123 })).toBeTruthy()
+        expect(isNumberDict({ a: 123, b: 456 })).toBeTruthy()
+        expect(isNumberDict({ a: 123, b: 456 })).toBeTruthy()
+        const isStringOrBooleanDict = new ObjectValidator().dictionaryOf(
+            new OneOfValidator()
+                .oneOf(new StringValidator().seal(), new BooleanValidator().seal())
+                .seal())
+            .seal()
+        expect(isStringOrBooleanDict({ a: 123 })).toBe(false)
+        expect(isStringOrBooleanDict({ a: 123, b: [] })).toBe(false)
+        expect(isStringOrBooleanDict({ a: "abc", b: [] })).toBe(false)
+        expect(isStringOrBooleanDict({ a: false, b: [] })).toBe(false)
+        expect(isStringOrBooleanDict({ a: "abc" })).toBe(true)
+        expect(isStringOrBooleanDict({ a: false })).toBe(true)
+        expect(isStringOrBooleanDict({ a: "abc", b: "def" })).toBe(true)
+        expect(isStringOrBooleanDict({ a: "abc", b: true })).toBe(true)
+        expect(isStringOrBooleanDict({ a: "abc", b: false })).toBe(true)
+        expect(isStringOrBooleanDict({ a: true, b: false })).toBe(true)
     })
     it("equals", () => {
         const obj = {}
