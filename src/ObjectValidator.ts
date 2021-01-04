@@ -19,6 +19,28 @@ export default class ObjectValidator<O extends object> extends EqualsValidatorBa
         this.ruleCheckers.push(value => typeof value === "object" && value !== null)
     }
 
+    /**
+     * Checks the values of all object properties with the given validator. It
+     * can be used to validate indexed objects.
+     *
+     * **Note:** Internally it uses the `Object.keys` function to listen
+     * object's keys.
+     * @param validator The validator to check the property values of the given
+     * object value.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dictionaryOf(validator: SealedValidator<any>): ObjectValidator<O> {
+        this.ruleCheckers.push(value => {
+            return Object.keys(value).reduce((prev, key) => {
+                if (!prev) {
+                    return false
+                }
+                return validator(value[key as keyof O])
+            }, true as boolean)
+        })
+        return this
+    }
+
     equals(compareValue: O): ObjectValidator<O> {
         super.equals(compareValue)
         return this
