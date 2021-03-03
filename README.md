@@ -62,7 +62,3 @@ available:
   generator also provides methods to check the string.
 - `UndefinedValidator`: This validator returns `true` if the given value is
   `undefined`
-
-## TODO
-
-- Add JSDoc documentation
